@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package nildrop_service;
+
+message RegistrationRequest {
+  string nillionAddress = 1;
+  string pubKeyType = 2;
+  string pubKey = 3;
+}
+
+message RegistrationResponse {
+    string nillionAddress = 1;
+    bool deleted = 2;
+    string eligible = 3;
+}
+
+message DeleteClaimRequest {
+    string nillionAddress = 1;
+    string msg = 2;
+    string signature = 3;
+}
+
+message DeleteClaimResponse {
+    bool deleted = 1;
+}
+
+message AddTermsRequest {
+    string nillionAddress = 1;
+    string termsMsg = 2;
+    string signature = 3;
+}
+
+message CheckTermsRequest {
+    string nillionAddress = 1;
+}
+
+message TermsResponse {
+    string versionStored = 1;
+}
+
+message AddIdRequest {
+    string nillionAddress = 1;
+    string idType = 2;
+    string idMsg = 3;
+    string signature = 4;
+}
+
+message DeleteIdRequest {
+    string nillionAddress = 1;
+    string idType = 2;
+    string idMsg = 3;
+    string signature = 4;
+}
+
+message AddIdResponse {
+    string id = 1;
+    string username = 2;
+}
+
+message DeleteIdResponse {
+}
+
+message EligibilityRequest {
+    string nillionAddress = 1;
+    string msg = 2;
+    string signature = 3;
+}
+
+message EligibilityResponse {
+    bool is_eligible = 1;
+}
+
+message TempVerificationRequest {
+    string nillionAddress = 1;
+    string pubKeyType = 2;
+    string pubKey = 3;
+    string message = 4;
+    string signature = 5;
+}
+
+message TempVerificationResponse {
+    bool verified = 1;
+}
+
+message HealthRequest {
+}
+
+message HealthResponse {
+    bool serving = 1;
+}
+
+message VersionRequest {
+}
+
+
+message VersionResponse {
+    string version = 1;
+}
+
+
+service Contract {
+    rpc Health (HealthRequest) returns (HealthResponse);
+    rpc Version (VersionRequest) returns (VersionResponse);
+    rpc TempVerify (TempVerificationRequest) returns (TempVerificationResponse);
+    rpc Register (RegistrationRequest) returns (RegistrationResponse);
+    rpc AddTerms (AddTermsRequest) returns (TermsResponse);
+    rpc CheckTerms (CheckTermsRequest) returns (TermsResponse);
+    rpc Eligible (EligibilityRequest) returns (EligibilityResponse);
+    rpc AddId (AddIdRequest) returns (AddIdResponse);
+    rpc DeleteId (AddIdRequest) returns (DeleteIdResponse);
+    rpc DeleteClaim (DeleteClaimRequest) returns (DeleteClaimResponse);
+}

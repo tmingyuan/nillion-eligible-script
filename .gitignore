@@ -1,0 +1,6 @@
+log
+logs
+.idea
+node_modules
+__pycache__
+npminstall-debug.log
