@@ -3,13 +3,18 @@ const { Secp256k1HdWallet } = require("@cosmjs/amino");
 const { toBase64, toUtf8} = require("@cosmjs/encoding");
 const { ethers } = require('ethers');
 
-// 替换 XMLHttpRequest
-const XHR = require('xhr2');
-global.XMLHttpRequest = XHR
-
 // const { HttpsProxyAgent } = require('https-proxy-agent');
 // const proxyUrl = 'http://127.0.0.1:7890'; // 动态代理地址
 // const proxyAgent = new HttpsProxyAgent(proxyUrl);
+//
+// 替换 XMLHttpRequest
+// const XHR = require('xhr2');
+// global.XMLHttpRequest = XHR
+// XHR.nodejsSet({
+//   httpAgent: proxyAgent,
+//   httpsAgent: proxyAgent,
+// })
+
 
 const {
   RegistrationRequest, RegistrationResponse,

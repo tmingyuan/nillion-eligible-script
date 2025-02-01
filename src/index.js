@@ -1,10 +1,25 @@
 
 const { WalletProcess } = require('./register');
-
-
 const { readCsvFile } = require('./util/csv');
+const fs = require('fs').promises;
+
+const { HttpsProxyAgent } = require('https-proxy-agent');
+
+const XHR = require('xhr2');
+global.XMLHttpRequest = XHR
+
 
 async function main() {
+  let proxyUrl = await fs.readFile('../data/proxy.txt')
+  proxyUrl = proxyUrl.toString().trim();
+  console.log('proxyUrl', proxyUrl);
+  if (proxyUrl !== '') {
+    const proxyAgent = new HttpsProxyAgent(proxyUrl);
+    XHR.nodejsSet({
+      httpAgent: proxyAgent,
+      httpsAgent: proxyAgent,
+    })
+  }
   let walletInfos = await readCsvFile('../data/browserWallet.csv');
   let evmWalletInfos = await readCsvFile('../data/evmWallet.csv');
 
